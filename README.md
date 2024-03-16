@@ -3,6 +3,7 @@ This repository tackles a machine learning challenge: building a model to predic
 ## Table of contents
 The Readme file is organized as follows: TODO
 
+
 ## Dataset Description
 The dataset contains various statistical features of NBA players. Here's a table summarizing the variables:
 

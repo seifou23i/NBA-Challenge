@@ -5,7 +5,7 @@ from matplotlib import pyplot as plt
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import KFold
 from sklearn.metrics import confusion_matrix
-from sklearn.metrics import recall_score
+from sklearn.metrics import recall_score, precision_score
 from sklearn.svm import SVC
 from sklearn.ensemble import RandomForestClassifier
 
@@ -22,6 +22,7 @@ def score_classifier(dataset,classifier,labels):
     kf = KFold(n_splits=3,random_state=50,shuffle=True)
     confusion_mat = np.zeros((2,2))
     recall = 0
+    precision= 0
     for training_ids,test_ids in kf.split(dataset):
         training_set = dataset[training_ids]
         training_labels = labels[training_ids]
@@ -31,9 +32,12 @@ def score_classifier(dataset,classifier,labels):
         predicted_labels = classifier.predict(test_set)
         confusion_mat+=confusion_matrix(test_labels,predicted_labels)
         recall += recall_score(test_labels, predicted_labels)
+        precision += precision_score(test_labels, predicted_labels)
     recall/=3
+    precision/=3
     print(confusion_mat)
     print(recall)
+    print(precision)
     print(confusion_mat[1][1]/ (confusion_mat[1][1] + confusion_mat[1][0]))
 
 

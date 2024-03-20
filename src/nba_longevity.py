@@ -11,12 +11,12 @@ from sklearn.preprocessing import StandardScaler
 
 class NBALongevity(ABC):
     """
-    An abstract base class (ABC) for building and evaluating a Logistic Regression model
-    to predict NBA player longevity. It provides functionalities for data preprocessing,
-    model training, prediction, evaluation, saving, and loading trained models and scaler.
+    A class for building and evaluating a Logistic Regression model to predict NBA player longevity. It provides
+    functionalities for data preprocessing,model training, prediction, evaluation, saving, and loading trained models
+    and scaler.
 
-    This class is designed to be subclassed for specific implementations of
-    NBA longevity prediction models. Subclasses can override methods as needed.
+    This class is designed to be subclassed for specific implementations of NBA longevity prediction models.
+    Subclasses can override methods as needed.
 
     Args:
         C (float, optional): Regularization parameter for LogisticRegression. Defaults to 0.1.
@@ -49,8 +49,10 @@ class NBALongevity(ABC):
 
         Args:
           X (pd.DataFrame): The training data features.
-          y (pd.Series): The training data target variable (e.g., indicating long vs. short career).
+          y (pd.Series): The training data target variable. Binary variable indicating playing for at least 5 years (1)
+          or less (0)
         """
+
         self.name_features = X.columns.to_numpy()
         self.name_target = y.name
         X_scaled = self.scaler.fit_transform(X)
@@ -81,12 +83,12 @@ class NBALongevity(ABC):
           X (pd.DataFrame): The data for which to predict career longevity probabilities.
 
         Returns:
-          np.ndarray: The predicted probabilities of each class (probability of long vs. short career).
+          np.ndarray: The predicted probabilities of each class.
         """
         if not self.is_fitted:
             raise ValueError("Model not trained yet. Please call 'fit' first.")
         X_scaled = self.scaler.transform(X)
-        return self.model.predict_proba(X)
+        return self.model.predict_proba(X_scaled)
 
     def evaluate(self, X_test: pd.DataFrame, y_test: pd.Series, metrics: List[str] = ["precision"]) -> dict:
         """
@@ -95,7 +97,7 @@ class NBALongevity(ABC):
 
         Args:
           X_test (pd.DataFrame): The testing data features.
-          y_test (pd.Series): The testing data target variable (e.g., indicating long vs. short career).
+          y_test (pd.Series): The testing data target variable.
           metrics (List[str], optional): A list of metric names to calculate. Defaults to ["precision"].
 
         Returns:
@@ -128,11 +130,11 @@ class NBALongevity(ABC):
 
     def load_models(self, model_path: str, scaler_path: str):
         """
-        Loads a previously trained LogisticRegression model and StandardScaler from specified paths.
+        Loads a previously trained LogisticRegression model and the scaler from specified paths.
 
         Args:
           model_path (str): The path to the saved LogisticRegression model file.
-          scaler_path (str): The path to the saved StandardScaler model file.
+          scaler_path (str): The path to the saved scaler model file.
 
         Raises:
           ValueError: If the model or scaler is not fitted yet (likely due to a missing file).
@@ -143,11 +145,11 @@ class NBALongevity(ABC):
 
     def save_models(self, model_path: str, scaler_path: str):
         """
-        Saves the trained LogisticRegression model and StandardScaler to specified paths.
+        Saves the trained LogisticRegression model and scaler to specified paths.
 
         Args:
           model_path (str): The path to save the LogisticRegression model file.
-          scaler_path (str): The path to save the StandardScaler model file.
+          scaler_path (str): The path to save the scaler model file.
 
         Raises:
           ValueError: If the model or scaler is not fitted yet (call `fit` first).

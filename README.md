@@ -20,6 +20,28 @@ This project is organized into the following directories and files:
 
 !["Project Structure"](data/outputs/project_structure.png)
 
+NBA-Challenge/
+├── data/
+│ ├── inputs/ (input data files)
+│ │ └── nba_logreg.csv
+│ └── outputs/ (output files generated during processing)
+│ └── models/ (saved trained models)
+├── notebooks/ (experimentation notebooks)
+│ ├── 01_EDA.ipynb (data exploration and analysis)
+│ └── 02_Models_Comparison.ipynb (experimentation and models comparison)
+├── src/
+│ ├── nba_longevity.py (a class for model deployment)
+│ └── utils.py (utility functions)
+├── static/
+│ └── style.css (stylesheet for the web app)
+├── templates/
+│ └── index.html (the main HTML template)
+├── app.py (the Flask REST API)
+├── Dockerfile
+├── LICENSE
+├── requirements.txt
+└── train.py (script for training the model before deployment)
+
 ## Dataset Description
 
 The dataset contains various statistical features of NBA players. Here's a table summarizing the variables:

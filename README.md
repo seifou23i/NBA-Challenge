@@ -18,7 +18,7 @@ statistics, will last over 5 years in the league and whether they are worth inve
 
 This project is organized into the following directories and files:
 
-![Project Structure](./data/outputs/project_structure.png)
+![Project Structure](data/outputs/project_structure.png)
 
 ## Dataset Description
 
